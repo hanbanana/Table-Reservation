@@ -7,7 +7,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+        crossorigin="anonymous">
 </head>
 
 <body>
@@ -71,7 +72,8 @@
 
         <footer class="footer">
             <div class="container">
-                <p class="pull-right"><a href="https://github.com/hanbanana/Table-Reservation.git" target="_blank">Github Repo <i class="fab fa-github"></i></a></p>
+                <p class="pull-right"><a href="https://github.com/hanbanana/Table-Reservation.git" target="_blank">Github
+                        Repo <i class="fab fa-github"></i></a></p>
             </div>
         </footer>
 
@@ -81,3 +83,36 @@
 
 </html>
 
+<script type="text/javascript">
+
+    $(".submit").on("click", function (event) {
+        event.preventDefault();
+
+        var newReservation = {
+            customerName: $("#reserve-name").val().trim(),
+            phoneNumber: $("#reserve-phone").val().trim(),
+            customerEmail: $("#reserve-email").val().trim(),
+            customerID: $("#reserve-unique-id").val().trim()
+        };
+        console.log(newReservation);
+
+        $.post("/api/tables", newReservation,
+            function (data) {
+                if (data) {
+                    alert("Yay! You are officially booked!");
+                }
+
+                else {
+                    alert("Sorry you are on the wait list");
+                }
+
+                $("#reserve-name").val("");
+                $("#reserve-phone").val("");
+                $("#reserve-email").val("");
+                $("#reserve-unique-id").val("");
+
+            });
+
+    });
+
+</script>
